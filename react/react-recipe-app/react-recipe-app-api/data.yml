@@ -1,0 +1,18 @@
+recipes:
+  - title: 卵焼き
+    ingredients: 
+      - 卵 1個
+      - 油 10cc
+    calory: 100
+  - title: ゆで卵
+    ingredients:
+      - 卵　適量
+      - お湯
+    calory: 50
+    
+  - title: ホットケーキ
+    ingredients:
+      - ホットケーキミックス  200g
+      - 卵　1個
+      - 牛乳　150ml
+    calory: 100
