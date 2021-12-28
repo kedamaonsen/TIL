@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import './App.css';
 import Recipe from './Recipe';
 
@@ -7,19 +7,19 @@ function App() {
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
-  },[])
+  }, [])
 
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
 
-  const getRecipes = async () => {
+  const getRecipes = useCallback(async () => {
     const response = await fetch(`http://localhost:9999/search?q="${query}"`);
     const data = await response.json();
     setRecipes(data.hits);
-  }
+  }, [query]);
 
-  const getSearch = e =>{
+  const getSearch = e => {
 
     //reactで検索処理したいので、htmlのformクリックイベントはキャンセルする
     e.preventDefault();
@@ -38,7 +38,7 @@ function App() {
   //queryが変更されたらレシピ検索
   useEffect(() => {
     getRecipes();
-  }, [query])
+  }, [query, getRecipes])
 
   return (
     <div className="App">
@@ -49,10 +49,10 @@ function App() {
       <div>
         {recipes.map(recipe => (
           <Recipe
-          key={recipe.Title}
-          title={recipe.Title}
-          calories={recipe.Calory}
-          ingredients={recipe.Ingredients}
+            key={recipe.Title}
+            title={recipe.Title}
+            calories={recipe.Calory}
+            ingredients={recipe.Ingredients}
           />
         ))}
       </div>
